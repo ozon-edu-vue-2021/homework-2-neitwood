@@ -1,6 +1,9 @@
 <template>
   <div class="folders">
-      <TreeFilesNode :node="json"></TreeFilesNode>
+      <TreeFilesNode
+          :node="json"
+          :depth="0"
+      />
   </div>
 </template>
 
