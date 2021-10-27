@@ -1,19 +1,17 @@
 <template>
   <div class="node">
 
-<!--    <div class="name" @click="openClose(node)">-->
       <NodeElement
           class="name"
-          @click="openClose(node)"
-          :node="node"
+          @click="openClose(data)"
+          :data="data"
       />
-<!--    </div>-->
 
-    <div v-if="opened && node.type!=='file' && node.type!=='link'">
+    <div v-if="opened && data.type!=='file' && data.type!=='link'">
       <tree-files-node
-          v-for="dir in currentNode"
-          :key="dir.name"
-          :node="dir"
+          v-for="el in currentData"
+          :key="el.name"
+          :data="el"
       />
     </div>
 
@@ -26,24 +24,24 @@ import NodeElement from "./NodeElement";
 export default {
   name: "TreeFilesNode",
   props: {
-    node: Object,
+    data: Object,
     depth: Number
   },
   data() {
     return {
       opened: false,
-      currentNode: null,
+      currentData: null,
     }
   },
   methods: {
     openClose(node) {
-      this.currentNode = node;
+      this.currentData = node;
       this.opened = !this.opened;
     },
   },
   watch: {
-    currentNode: function (val) {
-      this.currentNode = val.contents.sort((a,b)=> {
+    currentData: function (val) {
+      this.currentData = val.contents.sort((a,b)=> {
             if (a.type < b.type)
               return -1;
             return 0;
@@ -52,10 +50,7 @@ export default {
     },
   },
   computed: {
-    // indent() {
-    //   // return 1;
-    //   return { 'padding-left': `${this.depth * 15}px` }
-    // }
+
   },
   components: {
     NodeElement,

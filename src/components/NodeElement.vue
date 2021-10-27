@@ -4,21 +4,22 @@
         active: isActive
       }]"
       @click="isNotFolder"
+      ref="node"
   >
     <FolderSvg
-        v-if="node.type==='directory'"
+        v-if="data.type==='directory'"
         class="icon"
     />
     <FileSvg
-        v-if="node.type==='file'"
+        v-if="data.type==='file'"
         class="icon"
     />
     <LinkSvg
-      v-if="node.type==='link'"
+      v-if="data.type==='link'"
       class="icon"
     />
     <div class="caption">
-      {{ node.name }}
+      {{ data.name }}
     </div>
   </div>
 </template>
@@ -31,7 +32,7 @@ import LinkSvg from '../../public/static/link.svg';
 export default {
   name: "NodeElement",
   props: {
-    node: Object,
+    data: Object,
 
   },
   data(){
@@ -39,12 +40,25 @@ export default {
       isActive: false
     }
   },
+  created() {
+    document.addEventListener('click', this.isClickOutside);
+  },
+  destroyed () {
+    document.removeEventListener('click', this.isClickOutside)
+  },
   methods: {
     isNotFolder(){
-        if(this.node.type==='file' || this.node.type==='link'){
+        if(this.data.type==='file' || this.data.type==='link'){
           this.isActive = !this.isActive;
         }
-        this.$emit('click');
+        this.$emit('click', this);
+    },
+    isClickOutside(event){
+      let el = this.$refs.node;
+      let target = event.target;
+      if (el !== target && !el.contains(target)){
+        this.isActive = false
+      }
     }
   },
   components: {

@@ -1,7 +1,7 @@
 <template>
   <div class="folders">
       <TreeFilesNode
-          :node="json"
+          :data="json"
           :depth="0"
       />
   </div>
