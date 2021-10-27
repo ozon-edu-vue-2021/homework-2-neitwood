@@ -1,11 +1,12 @@
 <template>
-  <div class="node" :style="indent">
+  <div class="node">
 
 <!--    <div class="name" @click="openClose(node)">-->
       <NodeElement
           class="name"
           @click="openClose(node)"
-          :node="node"/>
+          :node="node"
+      />
 <!--    </div>-->
 
     <div v-if="opened && node.type!=='file' && node.type!=='link'">
@@ -13,7 +14,6 @@
           v-for="dir in currentNode"
           :key="dir.name"
           :node="dir"
-          :depth="depth+1"
       />
     </div>
 
@@ -52,10 +52,10 @@ export default {
     },
   },
   computed: {
-    indent() {
-      // return 1;
-      return { 'padding-left': `${this.depth * 15}px` }
-    }
+    // indent() {
+    //   // return 1;
+    //   return { 'padding-left': `${this.depth * 15}px` }
+    // }
   },
   components: {
     NodeElement,
@@ -69,7 +69,7 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  /*padding-left: 15px;*/
+  padding-left: 15px;
   cursor: pointer;
 }
 .type{

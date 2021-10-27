@@ -60,9 +60,9 @@ export default {
     text-align: left;
     color: #eaeaea;
     font-family: sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: lighter;
-    padding-left: 5px;
+    padding-left: 3px;
   }
   .icon{
     fill: #86929a;
