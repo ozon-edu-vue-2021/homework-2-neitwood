@@ -1,28 +1,51 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+    />
+    <TreeFiles
+        :json="json"
+        @generatedBreadcrumbs="setBreadcrumbs"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import json from '../public/static/node_modules.json';
+import TreeFiles from "./components/TreeFiles";
+import Breadcrumbs from "./components/Breadcrumbs";
 
 export default {
   name: 'App',
+  data(){
+    return{
+      json: json,
+      breadcrumbs: []
+    }
+  },
+  methods:{
+    setBreadcrumbs(data){
+      this.breadcrumbs.splice(0);
+      this.breadcrumbs = data;
+    }
+  },
   components: {
-    HelloWorld
+    TreeFiles,
+    Breadcrumbs
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body{
+    margin:0;
+    background: #313336;
+  }
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
 </style>
