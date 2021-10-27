@@ -2,7 +2,6 @@
   <div class="folders">
       <TreeFilesNode
           :data="json"
-          :depth="0"
       />
   </div>
 </template>
@@ -15,18 +14,21 @@ export default {
   props: {
     json: Object
   },
-  data(){
-    return{
-      eventObject: {},
-      breadcrumbs: []
-    }
-  },
   mounted(){
+    /**
+     * проброс события клика по файлу/ссылке/папке в App.vue
+     */
     this.$root.$on('changedNode', (component)=>{
       this.$emit('generatedBreadcrumbs', this.generateBreadcrumbs(component))
     });
   },
   methods:{
+    /**
+     * Генерация хлебных крошек по нажатому компоненту
+     * Подъем по родителям вверх и рекурсивная отрисовка массива пути к файлу
+     * @param component
+     * @returns ['breadElem1', 'breadElem2', ...]
+     */
     generateBreadcrumbs(component){
       let tagName = component.$options.name
       if(tagName === "TreeFilesNode") {

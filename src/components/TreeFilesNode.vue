@@ -1,21 +1,18 @@
 <template>
   <div class="node">
-
       <NodeElement
           class="name"
           @click="openClose(data)"
           :data="data"
       />
 
-    <div v-if="opened && data.type!=='file' && data.type!=='link'">
-      <tree-files-node
-          v-for="el in currentData"
-          :key="el.name"
-          :data="el"
-          :depth="depth+1"
-      />
-    </div>
-
+      <div v-if="opened && data.type!=='file' && data.type!=='link'">
+        <tree-files-node
+            v-for="el in currentData"
+            :key="el.name"
+            :data="el"
+        />
+      </div>
   </div>
 </template>
 
@@ -35,15 +32,21 @@ export default {
     }
   },
   methods: {
+    /**
+     * Проброс текущего компонента наверх для отрисовки Breadcrumbs
+     * @param node
+     */
     openClose(node) {
       this.$root.$emit('changedNode', this);
       this.currentData = node;
       this.opened = !this.opened;
-
     },
-
   },
   watch: {
+    /**
+     * Сортировка содержимого нажатой папки
+     * @param val
+     */
     currentData: function (val) {
       if('contents' in val){
         this.currentData = val.contents.sort((a,b)=> {
@@ -54,9 +57,6 @@ export default {
         );
       }
     },
-  },
-  computed: {
-
   },
   components: {
     NodeElement,
