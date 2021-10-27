@@ -54,8 +54,4 @@ export default {
     background: #888;
     border: 1px solid #444646;
   }
-
-  ::-webkit-scrollbar-button{
-    /*display: none;*/
-  }
 </style>

@@ -67,9 +67,6 @@ export default {
   padding-left: 15px;
   cursor: pointer;
 }
-.type{
-  color: blue;
-}
 .name{
   width: 100%;
 }
