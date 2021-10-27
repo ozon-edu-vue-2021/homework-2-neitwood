@@ -15,6 +15,29 @@ export default {
   props: {
     json: Object
   },
+  data(){
+    return{
+      eventObject: {},
+      breadcrumbs: []
+    }
+  },
+  mounted(){
+    this.$root.$on('changedNode', (component)=>{
+      this.$emit('generatedBreadcrumbs', this.generateBreadcrumbs(component))
+    });
+  },
+  methods:{
+    generateBreadcrumbs(component){
+      let tagName = component.$options.name
+      if(tagName === "TreeFilesNode") {
+        let arr = this.generateBreadcrumbs(component.$parent);
+        arr.push(component.data.name);
+        return arr;
+      } else {
+        return [];
+      }
+    }
+  },
   components: {
     TreeFilesNode
   }
@@ -30,6 +53,7 @@ export default {
     width: 300px;
     height: 100vh;
     overflow: scroll;
+    padding-top: 10px;
     padding-left: 10px;
     background-color: #3c3f41;
     box-sizing: border-box;

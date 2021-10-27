@@ -1,22 +1,37 @@
 <template>
   <div id="app">
-    <TreeFiles :json="json"/>
+    <Breadcrumbs
+        :breadcrumbs="breadcrumbs"
+    />
+    <TreeFiles
+        :json="json"
+        @generatedBreadcrumbs="setBreadcrumbs"
+    />
   </div>
 </template>
 
 <script>
-import json from '../public/static/node_modules.json'
+import json from '../public/static/node_modules.json';
 import TreeFiles from "./components/TreeFiles";
+import Breadcrumbs from "./components/Breadcrumbs";
 
 export default {
   name: 'App',
   data(){
     return{
-      json: json
+      json: json,
+      breadcrumbs: []
+    }
+  },
+  methods:{
+    setBreadcrumbs(data){
+      this.breadcrumbs.splice(0);
+      this.breadcrumbs = data;
     }
   },
   components: {
-    TreeFiles
+    TreeFiles,
+    Breadcrumbs
   }
 }
 </script>

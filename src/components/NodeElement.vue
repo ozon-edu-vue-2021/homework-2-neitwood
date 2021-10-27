@@ -52,12 +52,13 @@ export default {
           this.isActive = !this.isActive;
         }
         this.$emit('click', this);
+
     },
     isClickOutside(event){
       let el = this.$refs.node;
       let target = event.target;
       if (el !== target && !el.contains(target)){
-        this.isActive = false
+        this.isActive = false;
       }
     }
   },
