@@ -13,6 +13,10 @@
         v-if="node.type==='file'"
         class="icon"
     />
+    <LinkSvg
+      v-if="node.type==='link'"
+      class="icon"
+    />
     <div class="caption">
       {{ node.name }}
     </div>
@@ -22,6 +26,7 @@
 <script>
 import FolderSvg from '../../public/static/folder.svg';
 import FileSvg from '../../public/static/file.svg';
+import LinkSvg from '../../public/static/link.svg';
 
 export default {
   name: "NodeElement",
@@ -45,6 +50,7 @@ export default {
   components: {
     FolderSvg,
     FileSvg,
+    LinkSvg,
   }
 }
 </script>
@@ -67,7 +73,10 @@ export default {
   .icon{
     fill: #86929a;
   }
-  .active {
-    background: blue;
+  .active .caption{
+    color: #4b7bc2;
+  }
+  .active .icon{
+    fill: #4b7bc2;
   }
 </style>
