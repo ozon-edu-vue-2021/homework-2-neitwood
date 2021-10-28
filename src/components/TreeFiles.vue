@@ -8,12 +8,14 @@
 
 <script>
 import TreeFilesNode from "./TreeFilesNode";
+import KeyboardNavigationMixin from "../Mixins/KeyboardNavigationMixin";
 
 export default {
   name: 'TreeFiles',
   props: {
     json: Object
   },
+  mixins: [KeyboardNavigationMixin],
   mounted(){
     /**
      * проброс события клика по файлу/ссылке/папке в App.vue

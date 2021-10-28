@@ -3,7 +3,6 @@
       :class="['node-element', {
         active: isActive
       }]"
-      @click="isNotFolder"
       ref="node"
   >
     <FolderSvg
@@ -33,7 +32,7 @@ export default {
   name: "NodeElement",
   props: {
     data: Object,
-
+    active: Boolean
   },
   data(){
     return{
@@ -41,27 +40,36 @@ export default {
     }
   },
   created() {
-    document.addEventListener('click', this.isClickOutside);
+    // document.addEventListener('click', this.isClickOutside);
   },
   destroyed () {
-    document.removeEventListener('click', this.isClickOutside)
+    // document.removeEventListener('click', this.isClickOutside)
   },
   methods: {
-    isNotFolder(){
-        if(this.data.type==='file' || this.data.type==='link'){
-          this.isActive = !this.isActive;
-        }
-        this.$emit('click', this);
-
-    },
-    isClickOutside(event){
-      let el = this.$refs.node;
-      let target = event.target;
-      if (el !== target && !el.contains(target)){
-        this.isActive = false;
-      }
-    }
+    // isNotFolder(){
+    //     if(this.data.type==='file' || this.data.type==='link'){
+    //       // this.isActive = !this.isActive;
+    //     }
+    //       this.$emit('click', this);
+    //
+    // },
+    // isClickOutside(event){
+    //   let el = this.$refs.node;
+    //   let target = event.target;
+    //   if (el !== target && !el.contains(target)){
+    //     this.isActive = false;
+    //   }
+    // }
   },
+  // watch: {
+  //   active: function (val) {
+  //     // console.log(val);
+  //     if(this.data.type==='file' || this.data.type==='link'){
+  //       this.isActive = val;
+  //     }
+  //     // this.$emit('click', this);
+  //   }
+  // },
   components: {
     FolderSvg,
     FileSvg,
