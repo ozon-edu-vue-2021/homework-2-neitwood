@@ -1,7 +1,6 @@
 <template>
   <div
       class="node"
-      @click="openClose"
   >
 
 <!--      <NodeElement-->
@@ -9,8 +8,9 @@
 <!--          :data="data"-->
 <!--          :active="opened"-->
 <!--      />-->
+    <span @click="openClose">
       {{data.name}}
-
+    </span>
       <div v-if="opened && data.type!=='file' && data.type!=='link'">
         <tree-files-node
             v-for="el in currentData"
@@ -79,6 +79,7 @@ export default {
   width: 100%;
   padding-left: 15px;
   cursor: pointer;
+  color: white;
 }
 .name{
   width: 100%;
