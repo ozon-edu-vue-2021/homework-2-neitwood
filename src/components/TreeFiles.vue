@@ -13,16 +13,19 @@ import KeyboardNavigationMixin from "../Mixins/KeyboardNavigationMixin";
 export default {
   name: 'TreeFiles',
   props: {
-    json: Object
+    json: Object,
+  },
+  data(){
+    return{
+      prevElem: null
+    }
   },
   mixins: [KeyboardNavigationMixin],
   mounted(){
     /**
      * проброс события клика по файлу/ссылке/папке в App.vue
      */
-    this.$root.$on('changedNode', (component)=>{
-      this.$emit('generatedBreadcrumbs', this.generateBreadcrumbs(component))
-    });
+    this.$root.$on('changedNode', this.proxy);
   },
   methods:{
     /**
@@ -40,6 +43,25 @@ export default {
       } else {
         return [];
       }
+    },
+    proxy(component){
+      this.$emit('generatedBreadcrumbs', this.generateBreadcrumbs(component));
+
+      this.clearPrevComponent(component);
+    },
+    /**
+     * Делаем прошлый элемент неактивным в случае если это не папка
+     * @param component
+     */
+    clearPrevComponent(component){
+      if(this.prevElem) {
+       if(this.prevElem!== component && component.$props.data.type!=='directory'){
+          this.prevElem.$data.active = false;
+          this.prevElem = component;
+       }
+      }
+      // Выполняем только один раз
+      if(!this.prevElem) this.prevElem = component;
     }
   },
   components: {

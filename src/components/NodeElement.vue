@@ -3,7 +3,6 @@
       :class="['node-element', {
         active: isActive
       }]"
-      ref="node"
   >
     <FolderSvg
         v-if="data.type==='directory'"
@@ -39,37 +38,13 @@ export default {
       isActive: false
     }
   },
-  created() {
-    // document.addEventListener('click', this.isClickOutside);
+  watch: {
+    active: function (val) {
+      if(this.data.type==='file' || this.data.type==='link'){
+        this.isActive = val;
+      }
+    }
   },
-  destroyed () {
-    // document.removeEventListener('click', this.isClickOutside)
-  },
-  methods: {
-    // isNotFolder(){
-    //     if(this.data.type==='file' || this.data.type==='link'){
-    //       // this.isActive = !this.isActive;
-    //     }
-    //       this.$emit('click', this);
-    //
-    // },
-    // isClickOutside(event){
-    //   let el = this.$refs.node;
-    //   let target = event.target;
-    //   if (el !== target && !el.contains(target)){
-    //     this.isActive = false;
-    //   }
-    // }
-  },
-  // watch: {
-  //   active: function (val) {
-  //     // console.log(val);
-  //     if(this.data.type==='file' || this.data.type==='link'){
-  //       this.isActive = val;
-  //     }
-  //     // this.$emit('click', this);
-  //   }
-  // },
   components: {
     FolderSvg,
     FileSvg,

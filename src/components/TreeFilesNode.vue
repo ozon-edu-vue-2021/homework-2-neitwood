@@ -1,38 +1,38 @@
 <template>
-  <div
-      class="node"
-  >
+  <div class="node">
 
-<!--      <NodeElement-->
-<!--          class="name"-->
-<!--          :data="data"-->
-<!--          :active="opened"-->
-<!--      />-->
-    <span @click="openClose">
-      {{data.name}}
-    </span>
-      <div v-if="opened && data.type!=='file' && data.type!=='link'">
-        <tree-files-node
-            v-for="el in currentData"
-            :key="el.name"
-            :data="el"
-        />
-      </div>
+    <div @click="openClose">
+      <NodeElement
+          class="name"
+          :data="data"
+          :active="active"
+      />
+    </div>
+
+    <div v-if="opened && data.type!=='file' && data.type!=='link'">
+      <tree-files-node
+          v-for="el in currentData"
+          :key="el.name"
+          :data="el"
+      />
+    </div>
+
   </div>
 </template>
 
 <script>
-// import NodeElement from "./NodeElement";
+import NodeElement from "./NodeElement";
 
 export default {
   name: "TreeFilesNode",
   props: {
     data: Object,
-    depth: Number
+    depth: Number,
   },
   data() {
     return {
       opened: false,
+      active: false,
       currentData: null,
     }
   },
@@ -41,11 +41,11 @@ export default {
   methods: {
     /**
      * Проброс текущего компонента наверх для отрисовки Breadcrumbs
-     * @param node
      */
     openClose() {
       this.currentData = this.data;
       this.opened = !this.opened;
+      this.active = true;
       this.$root.$emit('changedNode', this);
     },
   },
@@ -66,7 +66,7 @@ export default {
     },
   },
   components: {
-    // NodeElement,
+    NodeElement,
   },
 }
 </script>
